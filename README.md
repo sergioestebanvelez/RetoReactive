@@ -43,34 +43,4 @@ Para ejecutar este proyecto, necesitarás tener instalados los siguientes progra
 spring.datasource.username=tu_usuario
 spring.datasource.password=tu_contraseña
 
-   ```bash
-   git clone https://github.com/tu_usuario/tu_repositorio.git
-   cd tu_repositorio
-3. mvn clean install
-mvn spring-boot:run
-4. La API estará disponible en http://localhost:8083
-
-## Endpoints de la API
-
-### 1. Crear un usuario
-
-- **Método**: `POST`
-- **URL**: `/users`
-- **Descripción**: Crea un nuevo usuario.
-  
-#### Cuerpo de la solicitud:
-```json
-{
-    "name": "Carlos",
-    "email": "carlos@email.com"
-}
-
-
- {
-    "id": 1,
-    "name": "Carlos",
-    "email": "carlos@email.com"
-}
-
-
-
+   
