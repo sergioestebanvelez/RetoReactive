@@ -43,4 +43,14 @@ Para ejecutar este proyecto, necesitarás tener instalados los siguientes progra
 spring.datasource.username=tu_usuario
 spring.datasource.password=tu_contraseña
 
-   
+ ## Endpoints de la API
+
+| **Método** | **URL**                          | **Descripción**                                          | **Cuerpo de la solicitud**                                                                 | **Respuesta**                                                                                           |
+|------------|-----------------------------------|----------------------------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| `POST`     | `/users`                          | Crea un nuevo usuario.                                  | ```json { "name": "Carlos", "email": "carlos@email.com" } ```                              | ```json { "id": 1, "name": "Carlos", "email": "carlos@email.com" } ```                                  |
+| `GET`      | `/users/{id}`                     | Obtiene los detalles de un usuario por su id.            | No aplica.                                                                                 | ```json { "id": 1, "name": "Carlos", "email": "carlos@email.com" } ```                                  |
+| `POST`     | `/cashouts`                       | Crea un nuevo cashout para un usuario.                   | ```json { "userId": 1, "amount": 500 } ```                                                  | ```json { "userId": 1, "amount": 500, "status": "approved" } ```                                        |
+| `GET`      | `/cashouts/user/{userId}`         | Obtiene todos los cashouts realizados por un usuario.    | No aplica.                                                                                 | ```json [ { "userId": 1, "amount": 500, "status": "approved" } ] ```                                   |
+| `GET`      | `/cashouts`                       | Obtiene todos los cashouts realizados en el sistema.     | No aplica.                                                                                 | ```json [ { "userId": 1, "amount": 500, "status": "approved" }, { "userId": 2, "amount": 300, "status": "pending" } ] ``` |
+
+---  
