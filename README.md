@@ -32,8 +32,7 @@ Este proyecto se trata de una implementación que incluye la gestión de usuario
 
 Para ejecutar este proyecto, necesitarás tener instalados los siguientes programas:
 
-- **Java 11 o superior**: [Descargar Java](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-- **Maven** (para compilar el proyecto): [Descargar Maven](https://maven.apache.org/download.cgi)
+- **Java 17 o superior**: [Descargar Java](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 - **PostgreSQL**: [Descargar PostgreSQL](https://www.postgresql.org/download/)
 
 ## Instalación
