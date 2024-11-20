@@ -15,7 +15,7 @@ public class WebClientConfig {
 
     @Bean
     public WebClient webClient(WebClient.Builder builder){
-        return builder.baseUrl("http://localhost:8083")
+        return builder.baseUrl("http://localhost:8081")
                 .defaultStatusHandler(HttpStatusCode::is4xxClientError, clientResponse -> {
                     return clientResponse.bodyToMono(String.class)
                             .flatMap(errorBody -> Mono.error(new Error400Exception(errorBody)));

@@ -28,4 +28,9 @@ public class UserService {
                     return repository.save(user);
                 });
     }
+
+    public Mono<User> crear(User user) {
+        // Implementación para guardar el usuario en la base de datos
+        return repository.save(user);
+    }
 }
