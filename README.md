@@ -45,7 +45,8 @@ Este proyecto implementa un servicio de **Cashout** donde los usuarios pueden so
 | TC09       | Obtener historial de cashouts    | `{"userId": 1}`                           | `[{ "id": 1, "userId": 1, "amount": 50.0 }, { "id": 2, "userId": 1, "amount": 30.0 }]` |
 
 ---
+![image](https://github.com/user-attachments/assets/70ef9e6c-1230-4777-9340-1c5971364245)
 
 
-![Uploading image.png…]()
+
 
