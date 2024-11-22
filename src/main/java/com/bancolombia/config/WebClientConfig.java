@@ -1,7 +1,6 @@
 package com.bancolombia.config;
 
 import com.bancolombia.exceptions.Error400Exception;
-import com.bancolombia.services.RestPolizaValidacion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatusCode;
@@ -22,11 +21,5 @@ public class WebClientConfig {
                 }).build();
     }
 
-    @Bean
-    public RestPolizaValidacion clienteRest(WebClient webClient){
-        HttpServiceProxyFactory factory = HttpServiceProxyFactory
-                .builderFor(WebClientAdapter.create(webClient))
-                .build();
-        return factory.createClient(RestPolizaValidacion.class);
-    }
+
 }

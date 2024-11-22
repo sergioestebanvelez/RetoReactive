@@ -1,19 +1,44 @@
--- Insertar usuarios en la tabla users
+CREATE TABLE IF NOT EXISTS users (
+                                     id SERIAL PRIMARY KEY,
+                                     name VARCHAR(255) NOT NULL,
+    balance NUMERIC(12, 2) NOT NULL DEFAULT 0.00,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+
+
+CREATE TABLE IF NOT EXISTS cashouts (
+                                        id SERIAL PRIMARY KEY,
+                                        user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    amount NUMERIC(12, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+
+
+ALTER TABLE users
+    ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ADD COLUMN IF NOT EXISTS balance NUMERIC(12, 2) NOT NULL DEFAULT 0.00;
+
+ALTER TABLE cashouts
+    ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+
+select *
+from cashouts;
+
+select *
+from users;
+
+
 INSERT INTO users (name, email, balance) VALUES
-                                             ('Carlos', 'carlos@email.com', 1000.0),
-                                             ('Ana', 'ana@email.com', 2000.0),
-                                             ('Pedro', 'pedro@email.com', 1500.0),
-                                             ('Lucía', 'lucia@email.com', 2500.0),
-                                             ('Juan', 'juan@email.com', 1800.0);
+    ('John Doe', 'johndoe@example.com', 100.00);
 
--- Insertar cashouts (retiros) en la tabla cashouts
-INSERT INTO cashouts (user_id, amount, status, created_at) VALUES
-                                                               (1, 200.0, 'approved'),
-                                                               (1, 300.0, 'pending'),
-                                                               (2, 500.0, 'approved'),
-                                                               (3, 150.0, 'rejected'),
-                                                               (4, 800.0, 'approved'),
-                                                               (5, 400.0, 'pending');
 
--- Si tu base de datos requiere valores de fecha específicos o no soporta NOW(), puedes usar una fecha estática:
--- '2024-11-19 12:00:00'
+INSERT INTO cashouts (user_id, amount) VALUES
+                                           (1, 50.00),
+                                           (2, 30.00);

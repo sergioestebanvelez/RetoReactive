@@ -2,7 +2,9 @@ package com.bancolombia.services;
 
 import com.bancolombia.domain.entities.Cashout;
 import com.bancolombia.domain.repositories.CashoutRepository;
-import com.bancolombia.exceptions.CashoutNoEncontradoException;
+import com.bancolombia.exceptions.InsufficientBalanceException;
+import com.bancolombia.exceptions.PaymentRejectedException;
+import com.bancolombia.microservices.PaymentMicroservice;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -11,46 +13,33 @@ import reactor.core.publisher.Mono;
 public class CashoutService {
 
     private final CashoutRepository repository;
+    private final PaymentMicroservice paymentMicroservice;
+    private final UserService userService;
 
-    public CashoutService(CashoutRepository repository) {
+    public CashoutService(CashoutRepository repository, PaymentMicroservice paymentMicroservice, UserService userService) {
         this.repository = repository;
+        this.paymentMicroservice = paymentMicroservice;
+        this.userService = userService;
     }
 
-    /**
-     * Crear un nuevo cashout.
-     * @param cashout Objeto Cashout a guardar.
-     * @return El cashout guardado.
-     */
-    public Mono<Cashout> crear(Cashout cashout) {
-        return repository.save(cashout);
+    public Mono<Cashout> crear(Long userId, Double amount) {
+        return userService.obtenerPorId(userId)
+                .flatMap(user -> {
+                    if (user.getBalance() < amount) {
+                        return Mono.error(new InsufficientBalanceException("Insufficient balance for cashout."));
+                    }
+                    return paymentMicroservice.processPayment(userId, amount)
+                            .flatMap(paymentStatus -> {
+                                if (!"approved".equalsIgnoreCase(paymentStatus)) {
+                                    return Mono.error(new PaymentRejectedException("Payment was rejected by the payment service."));
+                                }
+                                user.setBalance(user.getBalance() - amount);
+                                return userService.actualizarSaldo(userId, -amount)
+                                        .then(repository.save(new Cashout(userId, amount)));
+                            });
+                });
     }
 
-    /**
-     * Obtener todos los cashouts.
-     * @return Flux de todos los cashouts.
-     */
-    public Flux<Cashout> obtener() {
-        return repository.findAll();
-    }
-
-    /**
-     * Obtener un cashout por ID.
-     * @param id ID del cashout.
-     * @return Mono del cashout encontrado o error si no existe.
-     */
-    public Mono<Cashout> obtenerPorId(Long id) {
-        return repository.findById(id)
-                .switchIfEmpty(Mono.error(new CashoutNoEncontradoException("Cashout no encontrado")));
-    }
-
-    /**
-     * Obtener todos los cashouts de un usuario específico.
-     * @param userId ID del usuario.
-     * @return Flux de cashouts asociados al usuario.
-     */
-    public Flux<Cashout> obtenerPorUsuario(Long userId) {
-        return repository.findByUserId(userId);
-    }
 
 
 }

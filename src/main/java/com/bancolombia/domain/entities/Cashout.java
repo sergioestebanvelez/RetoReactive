@@ -15,6 +15,13 @@ public class Cashout {
     @NotNull
     private Double amount;
 
+    // Constructor con parámetros
+    public Cashout(Long userId, Double amount) {
+        this.userId = userId;
+        this.amount = amount;
+    }
+
+
     // Getters y Setters
     public Long getId() {
         return id;

@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>786</IntrospectionStateNumber>
+      <IntrospectionStateNumber>810</IntrospectionStateNumber>
       <ServerVersion>17.1</ServerVersion>
       <StartupTime>1732027468</StartupTime>
       <TimeZones>true ACDT
@@ -805,7 +805,7 @@ false Zulu
 14704||10|C|G
 14704||-9223372036854775808|U|G
 14704||10|U|G</Grants>
-      <IntrospectionStateNumber>786</IntrospectionStateNumber>
+      <IntrospectionStateNumber>810</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4227,8 +4227,8 @@ false Zulu
     <schema id="265" parent="3" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>786</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-11-19.20:31:33</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>810</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-11-22.02:33:28</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4267,7 +4267,7 @@ false Zulu
     </sequence>
     <table id="270" parent="265" name="cashouts">
       <ObjectId>16464</ObjectId>
-      <StateNumber>774</StateNumber>
+      <StateNumber>809</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4285,7 +4285,7 @@ false Zulu
     </table>
     <table id="273" parent="265" name="users">
       <ObjectId>16455</ObjectId>
-      <StateNumber>773</StateNumber>
+      <StateNumber>807</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4320,7 +4320,21 @@ false Zulu
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="278" parent="270" name="cashouts_pkey">
+    <column id="278" parent="270" name="created_at">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>5</Position>
+      <StateNumber>809</StateNumber>
+      <StoredType>timestamp|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="279" parent="270" name="updated_at">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>6</Position>
+      <StateNumber>809</StateNumber>
+      <StoredType>timestamp|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="280" parent="270" name="cashouts_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16470</ObjectId>
@@ -4329,14 +4343,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="279" parent="270" name="cashouts_pkey">
+    <key id="281" parent="270" name="cashouts_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16471</ObjectId>
       <Primary>1</Primary>
       <StateNumber>774</StateNumber>
       <UnderlyingIndexId>16470</UnderlyingIndexId>
     </key>
-    <column id="280" parent="271" name="id">
+    <column id="282" parent="271" name="id">
       <DefaultExpression>nextval(&apos;clientes_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4345,21 +4359,21 @@ false Zulu
       <SequenceId>16387</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="281" parent="271" name="nombre">
+    <column id="283" parent="271" name="nombre">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>742</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="282" parent="271" name="email">
+    <column id="284" parent="271" name="email">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>742</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="283" parent="271" name="clientes_pkey">
+    <index id="285" parent="271" name="clientes_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16394</ObjectId>
@@ -4368,7 +4382,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="284" parent="271" name="clientes_email_key">
+    <index id="286" parent="271" name="clientes_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16396</ObjectId>
@@ -4379,20 +4393,20 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="285" parent="271" name="clientes_pkey">
+    <key id="287" parent="271" name="clientes_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16395</ObjectId>
       <Primary>1</Primary>
       <StateNumber>742</StateNumber>
       <UnderlyingIndexId>16394</UnderlyingIndexId>
     </key>
-    <key id="286" parent="271" name="clientes_email_key">
+    <key id="288" parent="271" name="clientes_email_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16397</ObjectId>
       <StateNumber>742</StateNumber>
       <UnderlyingIndexId>16396</UnderlyingIndexId>
     </key>
-    <column id="287" parent="272" name="id">
+    <column id="289" parent="272" name="id">
       <DefaultExpression>nextval(&apos;polizas_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4401,26 +4415,26 @@ false Zulu
       <SequenceId>16398</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="288" parent="272" name="cliente_id">
+    <column id="290" parent="272" name="cliente_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>743</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="289" parent="272" name="tipo">
+    <column id="291" parent="272" name="tipo">
       <Position>3</Position>
       <StateNumber>759</StateNumber>
       <StoredType>varchar(15)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="290" parent="272" name="descripcion">
+    <column id="292" parent="272" name="descripcion">
       <Position>4</Position>
       <StateNumber>743</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <foreign-key id="291" parent="272" name="fk_cliente">
+    <foreign-key id="293" parent="272" name="fk_cliente">
       <ColNames>cliente_id</ColNames>
       <ObjectId>16407</ObjectId>
       <OnDelete>cascade</OnDelete>
@@ -4428,7 +4442,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>16388</RefTableId>
     </foreign-key>
-    <index id="292" parent="272" name="polizas_pkey">
+    <index id="294" parent="272" name="polizas_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16405</ObjectId>
@@ -4437,14 +4451,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="293" parent="272" name="polizas_pkey">
+    <key id="295" parent="272" name="polizas_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16406</ObjectId>
       <Primary>1</Primary>
       <StateNumber>743</StateNumber>
       <UnderlyingIndexId>16405</UnderlyingIndexId>
     </key>
-    <column id="294" parent="273" name="id">
+    <column id="296" parent="273" name="id">
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4453,28 +4467,42 @@ false Zulu
       <SequenceId>16454</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="295" parent="273" name="name">
+    <column id="297" parent="273" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>773</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="296" parent="273" name="email">
+    <column id="298" parent="273" name="email">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>773</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="297" parent="273" name="balance">
+    <column id="299" parent="273" name="balance">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>773</StateNumber>
       <StoredType>numeric|0s</StoredType>
       <TypeId>1700</TypeId>
     </column>
-    <index id="298" parent="273" name="users_pkey">
+    <column id="300" parent="273" name="created_at">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>5</Position>
+      <StateNumber>807</StateNumber>
+      <StoredType>timestamp|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="301" parent="273" name="updated_at">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>6</Position>
+      <StateNumber>807</StateNumber>
+      <StoredType>timestamp|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="302" parent="273" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16461</ObjectId>
@@ -4483,7 +4511,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="299" parent="273" name="users_pkey">
+    <key id="303" parent="273" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16462</ObjectId>
       <Primary>1</Primary>
