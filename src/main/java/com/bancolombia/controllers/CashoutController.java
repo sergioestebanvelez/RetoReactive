@@ -19,6 +19,9 @@ public class CashoutController {
     public Mono<Cashout> crearCashout(@RequestBody Cashout cashout) {
         return service.crear(cashout.getUserId(), cashout.getAmount());
     }
-
+    @GetMapping("/user/{userId}")
+    public Flux<Cashout> obtenerHistorial(@PathVariable Long userId) {
+        return service.obtenerHistorial(userId);
+    }
 
 }

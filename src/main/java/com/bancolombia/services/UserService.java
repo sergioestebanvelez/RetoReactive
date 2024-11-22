@@ -19,13 +19,13 @@ public class UserService {
 
     public Mono<User> obtenerPorId(Long id) {
         return repository.findById(id)
-                .switchIfEmpty(Mono.error(new UserNotFoundException("User not found with id: " + id)));
+                .switchIfEmpty(Mono.error(new UserNotFoundException("Usuario no encontrado id: " + id)));
     }
 
     public Mono<User> actualizarSaldo(Long id, Double cambioSaldo) {
         return obtenerPorId(id).flatMap(user -> {
             if (user.getBalance() + cambioSaldo < 0) {
-                return Mono.error(new InsufficientBalanceException("Insufficient balance to complete the operation."));
+                return Mono.error(new InsufficientBalanceException("Saldo insuficiente."));
             }
             user.setBalance(user.getBalance() + cambioSaldo);
             return repository.save(user);

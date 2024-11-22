@@ -10,7 +10,7 @@ public class PaymentMicroservice {
     private final WebClient webClient;
 
     public PaymentMicroservice(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://payment-microservice-url.com").build();
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/mock-payment-service").build();
     }
 
     /**

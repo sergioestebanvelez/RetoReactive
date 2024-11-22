@@ -5,41 +5,33 @@ import com.bancolombia.domain.repositories.CashoutRepository;
 import com.bancolombia.exceptions.InsufficientBalanceException;
 import com.bancolombia.exceptions.PaymentRejectedException;
 import com.bancolombia.microservices.PaymentMicroservice;
+import com.bancolombia.microservices.PaymentMicroserviceMock;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 public class CashoutService {
-
+    private final PaymentMicroserviceMock paymentMicroservice;
     private final CashoutRepository repository;
-    private final PaymentMicroservice paymentMicroservice;
-    private final UserService userService;
 
-    public CashoutService(CashoutRepository repository, PaymentMicroservice paymentMicroservice, UserService userService) {
-        this.repository = repository;
+    public CashoutService(PaymentMicroserviceMock paymentMicroservice, CashoutRepository repository) {
         this.paymentMicroservice = paymentMicroservice;
-        this.userService = userService;
+        this.repository = repository;
     }
 
     public Mono<Cashout> crear(Long userId, Double amount) {
-        return userService.obtenerPorId(userId)
-                .flatMap(user -> {
-                    if (user.getBalance() < amount) {
-                        return Mono.error(new InsufficientBalanceException("Insufficient balance for cashout."));
+        return paymentMicroservice.processPayment(userId, amount)
+                .flatMap(status -> {
+                    if ("approved".equals(status)) {
+                        return repository.save(new Cashout(userId, amount));
+                    } else {
+                        return Mono.error(new RuntimeException("Payment failed: " + status));
                     }
-                    return paymentMicroservice.processPayment(userId, amount)
-                            .flatMap(paymentStatus -> {
-                                if (!"approved".equalsIgnoreCase(paymentStatus)) {
-                                    return Mono.error(new PaymentRejectedException("Payment was rejected by the payment service."));
-                                }
-                                user.setBalance(user.getBalance() - amount);
-                                return userService.actualizarSaldo(userId, -amount)
-                                        .then(repository.save(new Cashout(userId, amount)));
-                            });
                 });
     }
 
-
-
+    public Flux<Cashout> obtenerHistorial(Long userId) {
+        return repository.findByUserId(userId);
+    }
 }
